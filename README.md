@@ -10,6 +10,7 @@ Hashtag generation from tweets collected bt tweet api
  python hashtagbycnn.py 
  
 ## Test 
+python test_twitter_model.py
 
 
 
