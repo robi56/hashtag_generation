@@ -1,0 +1,111 @@
+class_name: Model
+config:
+  input_layers:
+  - [input_1, 0, 0]
+  layers:
+  - class_name: InputLayer
+    config:
+      batch_input_shape: !!python/tuple [null, 1000]
+      input_dtype: int32
+      name: input_1
+      sparse: false
+    inbound_nodes: []
+    name: input_1
+  - class_name: Embedding
+    config:
+      W_constraint: null
+      W_regularizer: null
+      activity_regularizer: null
+      batch_input_shape: !!python/tuple [null, 1000]
+      dropout: 0.0
+      init: uniform
+      input_dim: 5745
+      input_dtype: int32
+      input_length: 1000
+      mask_zero: false
+      name: embedding_1
+      output_dim: 100
+      trainable: true
+    inbound_nodes:
+    - - [input_1, 0, 0]
+    name: embedding_1
+  - class_name: Convolution1D
+    config: {W_constraint: null, W_regularizer: null, activation: relu, activity_regularizer: null,
+      b_constraint: null, b_regularizer: null, bias: true, border_mode: valid, filter_length: 5,
+      init: glorot_uniform, input_dim: null, input_length: null, name: convolution1d_1,
+      nb_filter: 128, subsample_length: 1, trainable: true}
+    inbound_nodes:
+    - - [embedding_1, 0, 0]
+    name: convolution1d_1
+  - class_name: MaxPooling1D
+    config: {border_mode: valid, name: maxpooling1d_1, pool_length: 5, stride: 5,
+      trainable: true}
+    inbound_nodes:
+    - - [convolution1d_1, 0, 0]
+    name: maxpooling1d_1
+  - class_name: Convolution1D
+    config: {W_constraint: null, W_regularizer: null, activation: relu, activity_regularizer: null,
+      b_constraint: null, b_regularizer: null, bias: true, border_mode: valid, filter_length: 5,
+      init: glorot_uniform, input_dim: null, input_length: null, name: convolution1d_2,
+      nb_filter: 128, subsample_length: 1, trainable: true}
+    inbound_nodes:
+    - - [maxpooling1d_1, 0, 0]
+    name: convolution1d_2
+  - class_name: MaxPooling1D
+    config: {border_mode: valid, name: maxpooling1d_2, pool_length: 5, stride: 5,
+      trainable: true}
+    inbound_nodes:
+    - - [convolution1d_2, 0, 0]
+    name: maxpooling1d_2
+  - class_name: Convolution1D
+    config: {W_constraint: null, W_regularizer: null, activation: relu, activity_regularizer: null,
+      b_constraint: null, b_regularizer: null, bias: true, border_mode: valid, filter_length: 5,
+      init: glorot_uniform, input_dim: null, input_length: null, name: convolution1d_3,
+      nb_filter: 128, subsample_length: 1, trainable: true}
+    inbound_nodes:
+    - - [maxpooling1d_2, 0, 0]
+    name: convolution1d_3
+  - class_name: MaxPooling1D
+    config: {border_mode: valid, name: maxpooling1d_3, pool_length: 35, stride: 35,
+      trainable: true}
+    inbound_nodes:
+    - - [convolution1d_3, 0, 0]
+    name: maxpooling1d_3
+  - class_name: Flatten
+    config: {name: flatten_1, trainable: true}
+    inbound_nodes:
+    - - [maxpooling1d_3, 0, 0]
+    name: flatten_1
+  - class_name: Dense
+    config:
+      W_constraint: null
+      W_regularizer: null
+      activation: relu
+      activity_regularizer: null
+      b_constraint: null
+      b_regularizer: null
+      bias: true
+      init: glorot_uniform
+      input_dim: !!python/object/apply:numpy.core.multiarray.scalar
+      - !!python/object/apply:numpy.dtype
+        args: [i8, 0, 1]
+        state: !!python/tuple [3, <, null, null, null, -1, -1, 0]
+      - !!binary |
+        gAAAAAAAAAA=
+      name: dense_1
+      output_dim: 128
+      trainable: true
+    inbound_nodes:
+    - - [flatten_1, 0, 0]
+    name: dense_1
+  - class_name: Dense
+    config: {W_constraint: null, W_regularizer: null, activation: softmax, activity_regularizer: null,
+      b_constraint: null, b_regularizer: null, bias: true, init: glorot_uniform, input_dim: 128,
+      name: dense_2, output_dim: 1529, trainable: true}
+    inbound_nodes:
+    - - [dense_1, 0, 0]
+    name: dense_2
+  name: model_1
+  output_layers:
+  - [dense_2, 0, 0]
+keras_version: 1.2.0
