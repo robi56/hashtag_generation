@@ -1,4 +1,4 @@
-# hashtag_generation
+# Hashtag generation
 hashtag generation from  Social Media Data 
 ## Example 1: Hashtag generation from tweets collected bt tweet api
 This is a multilabel categorical classification problem. But in the project , the input tweet is repeated for its corresponding hashtags and  has been made it a general general classification problem. The output is predicated by ranking considering the hashtags are is its corrensponding tweet.  
