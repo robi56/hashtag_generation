@@ -1,7 +1,7 @@
 
 # author - Richard Liao
 # Dec 26 2016
-
+#Modified by Rabindra Nath Nandi for Hasttag generation
 import re
 import os
 os.environ['KERAS_BACKEND']='tensorflow'
